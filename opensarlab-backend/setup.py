@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import pathlib
 
 # Get the long description from the GitHub README file
@@ -17,7 +17,7 @@ setup(
     author='Alaska Satellite Facility OpenSARLab Team',
     author_email='uaf-jupyterhub-asf@alaska.edu',
     license='BSD 3-Clause',
-    packages=['opensarlab'],
+    packages=find_packages(),
     install_requires=['cryptography',
                       'pyjwt',
                      ],
