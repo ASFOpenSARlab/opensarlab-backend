@@ -1,0 +1,4 @@
+sandbox/**
+opensarlab-backend/build/**
+opensarlab-backend/dist/**
+opensarlab-backend/opensarlab_backend.egg*
