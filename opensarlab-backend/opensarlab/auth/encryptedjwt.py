@@ -1,3 +1,4 @@
+import os
 import logging as _logging
 
 from cryptography.fernet import Fernet as _Fernet
@@ -36,13 +37,16 @@ def get_sso_token_from_file():
         with open(f"/run/secrets/sso_token", 'r') as f:
             sso_token = f.read()
     except:
-        _log.warning("SSO Token file could not be read")
+        _log.warning("SSO Token file could not be read. Checking for custom env path...")
 
         try:
-            with open(f"/usr/local/etc/jupyterhub/existing-secret/sso_token", 'r') as f:
+            token_path = os.environ.get('OPENSARLAB_SSO_TOKEN_PATH', '')
+            if not token_path:
+                raise Exception("Environment variable 'OPENSARLAB_SSO_TOKEN_PATH' not found.")
+            with open(f"{token_path}", 'r') as f:
                 sso_token = f.read()
-        except: 
-            _log.error("Alternative SSO token file could not be read")
+        except Exception as e: 
+            _log.error(f"Alternative SSO token file could not be read: {e}")
             raise
 
     if not sso_token:

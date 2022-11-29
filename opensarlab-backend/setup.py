@@ -9,7 +9,7 @@ def read_github_readme():
 
 setup(
     name='opensarlab-backend',
-    version='1.0.1',
+    version='1.0.2',
     description='Backend python modules for OpenSARLab',
     long_description_content_type="text/markdown",
     long_description=read_github_readme(),
