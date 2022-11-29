@@ -22,6 +22,6 @@ from opensarlab.auth import encryptedjwt
 
 Take data, encode into a jwt token, and encrypt the token. Also decrypt the token and decode the data.
 
-The encode/encrypt secret is by default found at `/run/secrets/sso_token` or `/usr/local/etc/jupyterhub/existing-secret/sso_token`.
+The encode/encrypt secret is by default found at `/run/secrets/sso_token`. If not found there, then it will check for the path to the token defined in the environment variable `OPENSARLAB_SSO_TOKEN_PATH`.
 
 This module safely allows the sharing of JupyterHub user information between separate servers/containers.
