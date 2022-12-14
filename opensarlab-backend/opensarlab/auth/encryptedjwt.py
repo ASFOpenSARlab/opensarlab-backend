@@ -17,6 +17,11 @@ class NoTokenException(Exception):
 class BadDataObjectException(Exception):
     pass
 
+class DataNotSerializableException(Exception):
+    """
+    Data must be one of dict, list, str, int, float, bool, None
+    """
+
 def create_sso_token() -> bytes:
     """
     !!! This returns a secret !!!
@@ -64,8 +69,11 @@ def encrypt(data, sso_token: str=None) -> str:
         sso_token = get_sso_token_from_file()
     check_sso_token(sso_token)
 
+    if not isinstance(data, (dict, list, str, int, float, bool, None)):
+        raise DataNotSerializableException()
+
     try:
-        payload = json.dumps({"data": data})
+        payload = {"data": data}
     except Exception as e:
         raise BadDataObjectException()
 
@@ -93,8 +101,7 @@ def decrypt(encrypted_jwt: str, sso_token: str=None) -> str:
     payload = _jwt.decode(jwt=bytes_encoded_jwt, key=sso_token, algorithms=["HS256"])
 
     try:
-        data = json.loads(payload)
-        data = data['data']
+        data = payload['data']
     except Exception as e:
         raise BadDataObjectException()
 
