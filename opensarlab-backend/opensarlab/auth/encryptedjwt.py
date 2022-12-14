@@ -1,4 +1,5 @@
 import os
+import json
 import logging as _logging
 
 from cryptography.fernet import Fernet as _Fernet
@@ -11,6 +12,9 @@ class BadTokenException(Exception):
     pass
 
 class NoTokenException(Exception):
+    pass
+
+class BadDataObjectException(Exception):
     pass
 
 def create_sso_token() -> bytes:
@@ -55,15 +59,17 @@ def get_sso_token_from_file():
 
     return sso_token.strip()
 
-def encrypt(data: dict, token: str=None) -> str:
-    if not token:
+def encrypt(data, sso_token: str=None) -> str:
+    if not sso_token:
         sso_token = get_sso_token_from_file()
-    else:
-        sso_token = token
-
     check_sso_token(sso_token)
 
-    encoded_jwt = _jwt.encode(payload=data, key=sso_token, algorithm="HS256")
+    try:
+        payload = json.dumps({"data": data})
+    except Exception as e:
+        raise BadDataObjectException()
+
+    encoded_jwt = _jwt.encode(payload=payload, key=sso_token, algorithm="HS256")
     try:
         bytes_encoded_jwt = encoded_jwt.encode('ascii')
     except:
@@ -73,12 +79,9 @@ def encrypt(data: dict, token: str=None) -> str:
     encrypted_jwt = bytes_encrypted_jwt.decode('ascii')
     return encrypted_jwt
 
-def decrypt(encrypted_jwt: str, token: str=None) -> str:
-    if not token:
+def decrypt(encrypted_jwt: str, sso_token: str=None) -> str:
+    if not sso_token:
         sso_token = get_sso_token_from_file()
-    else:
-        sso_token = token
-
     check_sso_token(sso_token)
 
     try:
@@ -87,5 +90,12 @@ def decrypt(encrypted_jwt: str, token: str=None) -> str:
         bytes_encrypted_jwt = encrypted_jwt
     cipher_suite = _Fernet(sso_token)
     bytes_encoded_jwt = cipher_suite.decrypt(bytes_encrypted_jwt)
-    data = _jwt.decode(jwt=bytes_encoded_jwt, key=sso_token, algorithms=["HS256"])
+    payload = _jwt.decode(jwt=bytes_encoded_jwt, key=sso_token, algorithms=["HS256"])
+
+    try:
+        data = json.loads(payload)
+        data = data['data']
+    except Exception as e:
+        raise BadDataObjectException()
+
     return data
