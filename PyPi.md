@@ -27,7 +27,7 @@ python3 -m pip install twine build
 cd opensarlab-backend
 ```
 
-1. Build Python wheel. If rebuilding, you might need to remove the previous build artifacts.
+1. Build Python wheel. If rebuilding, you might need to remove the previous build artifacts in dist/.
 
 ```
 python3 -m build --wheel
