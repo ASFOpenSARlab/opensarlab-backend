@@ -2,10 +2,7 @@
 name = "opensarlab-backend"
 version = "1.0.5"
 authors = [
-  { 
-    name="Alaska Satellite Facility Science Enabling Services",
-    email="uaf-jupyterhub-admin@alaska.edu",
-  },
+  { name="Alaska Satellite Facility Science Enabling Services", email="uaf-jupyterhub-admin@alaska.edu"},
 ]
 description = "Backend python modules for OpenScienceLab"
 readme = "README.md"
@@ -14,7 +11,6 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
-    'BSD 3-Clause "New" or "Revised" License',
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3.9",
 ]
