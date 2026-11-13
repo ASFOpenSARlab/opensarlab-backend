@@ -25,6 +25,6 @@ setup(
         "Intended Audience :: Developers",
         'BSD 3-Clause "New" or "Revised" License',
         "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.12",
     ],
 )
