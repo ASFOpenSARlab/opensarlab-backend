@@ -1,0 +1,30 @@
+[project]
+name = "opensarlab-backend"
+version = "1.0.5"
+authors = [
+  { name="Alaska Satellite Facility Science Enabling Services", email="uaf-jupyterhub-admin@alaska.edu"},
+]
+description = "Backend python modules for OpenScienceLab"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.12",
+]
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+
+[build-system]
+requires = [
+    "setuptools >= 77.0.3",
+    "pyjwt",
+    "cryptography"
+    ]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/asfopensarlab/opensarlab-backend"
+Issues = "https://github.com/asfopensarlab/opensarlab-backend/issues"
