@@ -8,8 +8,8 @@ description = "Backend python modules for OpenScienceLab"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "pyjwt",
-    "cryptography"
+    "pyjwt >= 2.15.1",
+    "cryptography >= 50.0.2"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
